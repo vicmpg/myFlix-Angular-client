@@ -8,7 +8,6 @@ import { UserLoginFormComponent } from './user-login-form/user-login-form.compon
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true
 })
 export class AppComponent {
   title = 'myFlix-Angular-client';

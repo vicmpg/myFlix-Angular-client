@@ -12,12 +12,26 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserLoginFormComponent implements OnInit{
   @Input() loginData = { username: '', password: ''}
 
-  constructor() { }
+  constructor(public fetchApi: FetchApiDataService,
+    public matdialog: MatDialogRef<UserLoginFormComponent>,
+    public snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
   public loginUser(){
+    this.fetchApi.userLogin(this.loginData).subscribe((result) => {
+      // Successfully login done
+      localStorage.setItem('user', JSON.stringify(result.user));
+      localStorage.setItem('token', result.token);
+
+      this.matdialog.close();
+      this.snackbar.open('Login successfull!!!', 'OK', { duration: 2000});
+
+
+   }, (response) => {
+      this.snackbar.open(response, 'OK', { duration: 2000});
+   });
 
   }
 
