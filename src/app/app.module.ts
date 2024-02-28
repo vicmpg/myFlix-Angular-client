@@ -12,7 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule,Routes } from '@angular/router';
 
 // Component
 import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
@@ -36,6 +36,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(appRoutes),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -45,8 +46,7 @@ const appRoutes: Routes = [
     MatCardModule,
     MatFormFieldModule,
     MatSnackBarModule,
-    MatInputModule,
-    RouterModule.forRoot(appRoutes)
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
