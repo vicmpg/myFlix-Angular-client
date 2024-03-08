@@ -3,21 +3,23 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
-  styleUrl: './movie-card.component.scss'
+  styleUrls: ['./movie-card.component.scss']
 })
-export class MovieCardComponent implements OnInit{
-  movies : any[] = [];
+export class MovieCardComponent implements OnInit {
 
-  constructor(public fetchApi: FetchApiDataService) { }
+  movies: any[] = [];
+  fetchMovies: any;
 
+  constructor (
+    public fetchApiData: FetchApiDataService) {}
   ngOnInit(): void {
-    this.getAllMovies();
+    this.getMovies();
   }
-
-  public getAllMovies(): void {
-    this.fetchApi.getAllMovies().subscribe((response: any) => {
-      this.movies = response;
-      console.log(response);
+  // function for getting all movies
+  getMovies(): void {
+    this.fetchMovies.getAllMovies().subscribe((resp: any) => {
+      this.movies = resp;
+      console.log(this.movies);
       return this.movies;
     });
   }

@@ -11,7 +11,7 @@ describe('UserRegistrationFormComponent', () => {
       imports: [UserRegistrationFormComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(UserRegistrationFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
