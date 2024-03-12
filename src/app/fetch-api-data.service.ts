@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 
 //Declaring the api url that will provide data for the client app
-const apiUrl = 'https://myflix-z4g1.onrender.com';
+const apiUrl = 'https://myflix-z4g1.onrender.com/';
 @Injectable({
   providedIn: 'root'
 })
@@ -153,13 +153,14 @@ export class FetchApiDataService {
   
   private handleError(error: HttpErrorResponse): any {
       if (error.error instanceof ErrorEvent) {
-      console.error('Some error occurred:', error.error.message);
+          console.error('Some error occurred:', error.error.message);
       } else {
-      console.error(
-          `Error Status code ${error.status}, ` +
-          `Error body is: ${error.error}`);
+          console.error(
+              `Error Status code ${error.status}, ` +
+              `Error body is: ${error.error}`
+          );
       }
-      return throwError(
-      'Something bad happened; please try again later.');
+      throw 'Something bad happened; please try again later.';
   }
+  
 }
