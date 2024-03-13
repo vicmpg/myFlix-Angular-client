@@ -7,6 +7,13 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 
 // Import to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+/**
+* @description Component representing the user registration form.
+* @selector 'app-user-registration-form'
+* @templateUrl './user-registration-form.component.html'
+* @styleUrls ['./user-registration-form.component.scss']
+*/
 @Component({
   selector: 'app-user-registration-form',
   templateUrl: './user-registration-form.component.html',

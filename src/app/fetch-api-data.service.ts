@@ -7,32 +7,52 @@ import { map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
 const apiUrl = 'https://myflix-z4g1.onrender.com/';
+
+/**
+ * @description Service for user registration operations.
+ * @injectable
+*/
 @Injectable({
   providedIn: 'root'
 })
 
-
+  /**
+    * @constructor
+    * @param {HttpClient} http - Angular's HttpClient module for making HTTP requests.
+    * @param {DataService} dataService - Service for handling shared data between components.
+  */
 export class FetchApiDataService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
   constructor(private http: HttpClient) {
   }
 
-  // Making the api call for the user registration endpoint
+  /**
+    * @description Make an API call for user registration.
+    * @param {any} userDetails - User details for registration.
+    * @returns {Observable<any>} - Observable for the API response.
+  */
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http.post(apiUrl + 'users', userDetails).pipe(
     catchError(this.handleError)
     );
   }
-  // Making the api call for the user login endpoint
+  /**
+    * @description Make an API call for user login.
+    * @param {any} userDetails - User details for login.
+    * @returns {Observable<string>} - Observable for the API response containing the user token.
+  */
   public userLogin(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http.post(apiUrl + 'login', userDetails).pipe(
     catchError(this.handleError)
     );
   }
-  // Making the api call for the Get All Movies endpoint
+  /**
+    * @description Make an API call to retrieve all movies.
+    * @returns {Observable<any>} - Observable for the API response containing all movies.
+  */
   getAllMovies(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies', {headers: new HttpHeaders(
@@ -43,14 +63,23 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-
-  //Non-typed response extraction for now
+   
+  /**
+    * @description Extract non-typed response data from the API response.
+    * @param {any} res - API response.
+    * @returns {any} - Extracted response data.
+    * @private
+  */
   private extractResponseData(res: Object): any {
     const body = res;
     return body || {};
   }
 
-  // Making the api call for the Get One Movie endpoint
+  /**
+    * @description Make an API call to retrieve a single movie.
+    * @param {string} movieTitle - title of the movie to be retrieved.
+    * @returns {Observable<any>} - Observable for the API response containing the requested movie.
+  */
   getOneMovies(title: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/' + title, {headers: new HttpHeaders(
@@ -61,7 +90,11 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-  // Making the api call for the Get Director endpoint
+  /**
+    * @description Make an API call to retrieve a director by name.
+    * @param {string} directorName - Name of the director to be retrieved.
+    * @returns {Observable<any>} - Observable for the API response containing the requested director.
+  */
   getDirector(directorName: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/directors/' + directorName, {headers: new HttpHeaders(
@@ -72,7 +105,11 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-  // Making the api call for the Get Genre endpoint
+  /**
+    * @description Make an API call to retrieve a genre by name.
+    * @param {string} genreName - Name of the genre to be retrieved.
+    * @returns {Observable<any>} - Observable for the API response containing the requested genre.
+  */
   getGenre(genreName: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/genre/' + genreName, {headers: new HttpHeaders(
@@ -83,7 +120,11 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-  // Making the api call for the Get User endpoint
+   /**
+    * @description Make an API call to retrieve a user by username.
+    * @param {string} username - Username of the user to be retrieved.
+    * @returns {Observable<any>} - Observable for the API response containing the requested username.
+    */
   getUser(username: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/' + username, {headers: new HttpHeaders(
@@ -94,8 +135,8 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-  // Making the api call for the Get Favourite Movies for a user endpoint
-  getFavouriteMovies(username: string): Observable<any> {
+  // Making the api call for the Get Favorite Movies for a user endpoint
+  getFavoriteMovies(username: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/' + username, {headers: new HttpHeaders(
       {
@@ -107,7 +148,7 @@ export class FetchApiDataService {
     );
   }
   // Making the api call for the Add a Movie to Favourite Movies endpoint
-  addFavouriteMovies(username: string, movieID: string): Observable<any> {
+  addFavoriteMovies(username: string, movieID: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.post(apiUrl + 'users/' + username + '/movies/' + movieID, {headers: new HttpHeaders(
       {
@@ -117,7 +158,11 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-  // Making the api call for the Edit User endpoint
+  /**
+    * @description Make an API call to edit user information.
+    * @param {string} username - username of the user to be updated.
+    * @returns {Observable<any>} - Observable for the API response.
+  */
   editUser(username: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.put(apiUrl + 'users/' + username, {headers: new HttpHeaders(
@@ -128,7 +173,11 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-  // Making the api call for the Delete User endpoint
+  /**
+    * @description Make an API call to delete a user.
+    * @param {string} username - username of the user to be deleted.
+    * @returns {Observable<any>} - Observable for the API response.
+  */
   deleteUser(username: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.delete(apiUrl + 'users/' + username, {headers: new HttpHeaders(
@@ -139,8 +188,13 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-  // Making the api call for the Delete a Movie to Favourite Movies endpoint
-  deleteFavouriteMovies(username: string, movieID: string): Observable<any> {
+    /**
+    * @description Make an API call to delete a favorite movie for a user.
+    * @param {string} username - username of the user.
+    * @param {string} movieID - ID of the movie to be removed from favorites.
+    * @returns {Observable<any>} - Observable for the API response.
+    */
+  deleteFavoriteMovies(username: string, movieID: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.delete(apiUrl + 'users/' + username + '/movies/' + movieID, {headers: new HttpHeaders(
       {
@@ -150,7 +204,12 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-  
+   /**
+    * @description Handle HTTP errors and log them.
+    * @param {HttpErrorResponse} error - HTTP error response.
+    * @returns {any} - Error details.
+    * @private
+    */
   private handleError(error: HttpErrorResponse): any {
       if (error.error instanceof ErrorEvent) {
           console.error('Some error occurred:', error.error.message);

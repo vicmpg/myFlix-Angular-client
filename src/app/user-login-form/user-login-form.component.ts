@@ -7,13 +7,21 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FetchApiDataService  } from '../fetch-api-data.service';
 // Import to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
+/**
+* @description Component representing the user login form.
+* @selector 'app-user-login-form'
+* @templateUrl './user-login-form.component.html'
+* @styleUrls ['./user-login-form.component.scss']
+*/
 @Component({
   selector: 'app-user-login-form',
   templateUrl: './user-login-form.component.html',
   styleUrls: ['./user-login-form.component.scss'],
 })
 export class UserLoginFormComponent implements OnInit{
+/** Input for user data including username and password. */
   @Input() userData = { Username: '', Password: '' }
+  
   constructor(
     public fetchApiData: FetchApiDataService ,
     public dialogRef: MatDialogRef<UserLoginFormComponent>,
