@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 // Import to bring in the API call created in 6.2
 import { FetchApiDataService  } from '../fetch-api-data.service';
 
+// Import to display notifications back to the user
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -11,12 +14,13 @@ import { FetchApiDataService  } from '../fetch-api-data.service';
 })
 export class UserProfileComponent implements OnInit{
 
-  @Input() userData = { Username: "", Password: "", Email: "", Birthday: "" };
+  @Input() userData = { Username: "", Email: "", Birthday: "" };
 
   user: any = {};
 
   constructor(
     public fetchApiData: FetchApiDataService,
+    public snackBar: MatSnackBar,
     private router: Router
     ) {}
 
@@ -30,6 +34,33 @@ export class UserProfileComponent implements OnInit{
     this.userData.Username = this.user.Username;
     this.userData.Email = this.user.Email;
     this.userData.Birthday = this.user.Birthday;
-    console.log(this.user)
+  }
+
+  // function for updating user info
+  updateUser(): void {
+    this.fetchApiData.editUser(this.userData).subscribe((result) => {
+      console.log('User update success:', result);
+      localStorage.setItem('user', JSON.stringify(result));
+      this.snackBar.open('User update successful', 'OK', {
+        duration: 2000
+      });
+    }, (error) => {
+      console.error('Error updating user:', error);
+      this.snackBar.open('Failed to update user', 'OK', {
+        duration: 2000
+      });
+    });
+  }
+
+
+  // function to delete user profile
+  deleteUser(): void {
+    this.fetchApiData.deleteUser().subscribe((result) => {
+      localStorage.clear();
+      this.router.navigate(['welcome']);
+      this.snackBar.open('User deleted successful', 'OK', {
+        duration: 2000
+      });
+    });
   }
 }

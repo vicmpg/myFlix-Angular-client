@@ -1,31 +1,38 @@
 <app-navbar></app-navbar>
 <div class="movie-card-container">
     <mat-card *ngFor="let movie of movies;" class="movie-card">
+        <div class="img-container">
+            <img mat-card-image src={{movie.ImagePath}} alt= {{movie.Title}} />
+            <mat-card-actions class="actions">
+                <button
+                    mat-button
+                    color="primary"
+                >
+                    Synopsis
+                </button>
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="openGenreDialog(movie.Genre.Name, movie.Genre.Description)"
+                >
+                    Genre
+                </button>
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="openDirectorDialog(movie.Director.Name, movie.Director.Bio,movie.Director.Birth,movie.Director.Death)"
+                >
+                    Director
+                </button>
+                <button mat-icon-button style="width: auto;" color="primary"  (click)="toggleFav(movie)">
+                    <mat-icon *ngIf="!isFav(movie._id)" style="transform: scale(1.5);" color="primary">favorite_border</mat-icon>
+                    <mat-icon *ngIf="isFav(movie._id)" style="transform: scale(1.5);" color="primary">favorite</mat-icon>
+                </button>
+            </mat-card-actions>
+        </div>
         <mat-card-header class="card-header">
             <mat-card-title class="card-title">{{movie.Title}}</mat-card-title>
             <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src={{movie.ImagePath}} alt= {{movie.Title}} />
-        <mat-card-actions class="actions">
-            <button
-                mat-button
-                color="primary"
-            >
-                Genre
-            </button>
-            <button
-                mat-button
-                color="primary"
-            >
-                Director
-            </button>
-            <button
-                mat-button
-                color="primary"
-            >
-                Synopsis
-            </button>
-            <mat-icon color="primary">favorite_border</mat-icon>
-        </mat-card-actions>
     </mat-card>
 </div>
