@@ -1,14 +1,17 @@
-
-.main-page{
-    height: 100%;
+.main-page {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 20px;
- }
-
- h1{
-     font-size: 32px;
-     font-weight: bold;
- }
+    height: 100vh;
+}
+.button-container {
+    font-size: 20px;
+    width: 30%;
+}
+.welcome-button{
+    width: 50%;
+    margin: 15px; 
+    padding: 25px; 
+    width: 100%;
+}
