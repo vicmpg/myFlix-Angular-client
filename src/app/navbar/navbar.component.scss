@@ -1,0 +1,17 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+.navbar span {
+    font-size: 30px;
+}
+.spacer {
+    flex: 1 1 auto;
+}
+.nav-icon-button {
+    margin-right: 35px;
+    transform: scale(1.7);
+}

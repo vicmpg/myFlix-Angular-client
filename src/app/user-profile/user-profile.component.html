@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+<div class="profile-container">
+    <mat-card class="user-card">
+        <img mat-card-image src="http://placekitten.com/300/300">
+        <mat-card-header class="user-card-header">
+            <mat-card-title>{{userData.Username}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Email: {{userData.Email}}</p>
+            <p>Birthday: {{userData.Birthday | date:'longDate'}}</p>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Update Profile</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form>
+                <mat-form-field class="form-inputs">
+                    <input
+                        matInput
+                        [(ngModel)]="user.Username"
+                        placeholder="Username"
+                        type="text"
+                        name="Username"
+                        required
+                    >
+                </mat-form-field>
+                <mat-form-field class="form-inputs">
+                    <input
+                        matInput
+                        [(ngModel)]="user.Email"
+                        placeholder="Email"
+                        type="email"
+                        name="Email"
+                        required
+                    >
+                </mat-form-field>
+                <mat-form-field class="form-inputs">
+                    <input
+                        matInput
+                        [(ngModel)]="user.Birthday"
+                        placeholder="Birthday"
+                        type="date"
+                        name="Birthday"
+                        required
+                    >
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

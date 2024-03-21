@@ -125,15 +125,17 @@ export class FetchApiDataService {
     * @param {string} username - Username of the user to be retrieved.
     * @returns {Observable<any>} - Observable for the API response containing the requested username.
     */
-  getUser(username: string): Observable<any> {
-    const token = localStorage.getItem('token');
+  getUser(): Observable<any> {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user;
+    /*const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'users/' + username, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
       })}).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
-    );
+    );*/
   }
   // Making the api call for the Get Favorite Movies for a user endpoint
   getFavoriteMovies(username: string): Observable<any> {
