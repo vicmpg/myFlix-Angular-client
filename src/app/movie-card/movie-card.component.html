@@ -2,11 +2,12 @@
 <div class="movie-card-container">
     <mat-card *ngFor="let movie of movies;" class="movie-card">
         <div class="img-container">
-            <img mat-card-image src={{movie.ImagePath}} alt= {{movie.Title}} />
+            <img mat-card-image src={{movie.ImagePath}} alt={{movie.Title}} />
             <mat-card-actions class="actions">
                 <button
                     mat-button
                     color="primary"
+                    (click)="openSynopsisDialog(movie.Description)"
                 >
                     Synopsis
                 </button>
@@ -31,7 +32,7 @@
             </mat-card-actions>
         </div>
         <mat-card-header class="card-header">
-            <mat-card-title class="card-title">{{movie.Title}}</mat-card-title>
+            <mat-card-title class="card-title">{{movie.Title}} ({{movie.Year}})</mat-card-title>
             <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
         </mat-card-header>
     </mat-card>

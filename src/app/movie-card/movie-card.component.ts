@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DirectorInfoComponent } from '../director-info/director-info.component';
 import { GenreInfoComponent } from '../genre-info/genre-info.component';
+import { MovieSynopsisComponent } from '../movie-synopsis/movie-synopsis.component';
 
 // Import to bring in the API call created in 6.2
 import { FetchApiDataService  } from '../fetch-api-data.service';
@@ -66,12 +67,23 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+    // Function that will open the dialog when synopsis button is clicked
+    openSynopsisDialog(description: string): void {
+      this.dialog.open(MovieSynopsisComponent, {
+        data: {
+          Description: description,
+        },
+        width: '450px',
+      });
+    }
+
   // Function to get favMovie list
   getFavMovies(): void {
     this.user = this.fetchApiData.getUser();
     this.userData.FavoriteMovies = this.user.FavoriteMovies;
     this.FavoriteMovies = this.user.FavoriteMovies;
-    console.log(this.FavoriteMovies); 
+    console.log('Fav Movies in getFavMovie', this.FavoriteMovies); 
+    console.log('User in getFavMovie', this.user);
   }
 
   // Function to check if movie is favMovie
