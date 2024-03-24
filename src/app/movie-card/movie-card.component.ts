@@ -20,11 +20,12 @@ export class MovieCardComponent implements OnInit {
   user: any = {};
   userData = { Username: "", FavoriteMovies: []};
   FavoriteMovies: any[] = [];
+  isFavMovie: boolean = false;
 
   constructor (
     public fetchApiData: FetchApiDataService,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -65,62 +66,53 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  // Function Syp.
-  // ...
-
   // Function to get favMovie list
   getFavMovies(): void {
     this.user = this.fetchApiData.getUser();
     this.userData.FavoriteMovies = this.user.FavoriteMovies;
-    console.log(this.userData.FavoriteMovies)
+    this.FavoriteMovies = this.user.FavoriteMovies;
+    console.log(this.FavoriteMovies); 
   }
 
   // Function to check if movie is favMovie
-  isFav(_id: string): boolean {
-    return this.FavoriteMovies.some((movie) => movie._id === movie._id);
+  isFav(movie: any): any {
+    const MovieID = movie._id;
+    if (this.FavoriteMovies.some((movie) => movie === MovieID)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Function add / delete favMovie by icon button
   toggleFav(movie: any): void {
-    console.log(movie);
-    console.log(movie._id);
-    const isFavorite = this.isFav(movie._id);
-    console.log(this.isFav(movie._id));
+    const isFavorite = this.isFav(movie);
     isFavorite
-      ? this.deleteFavMovies(movie._id)
-      : this.addFavMovies(movie._id);
+      ? this.deleteFavMovies(movie)
+      : this.addFavMovies(movie);
   }
 
   // Function to add movie to favMovie list
-  addFavMovies(MovieID: string): void {
-    this.fetchApiData.addFavoriteMovies(MovieID).subscribe((resp: any) => {
-      console.log('Add Favorite Movies Response:', resp);
-      if (resp.success) {
-        this.snackBar.open('Movie has been added to your favorites!', 'OK', {
-          duration: 2000,
-        });
-        this.getFavMovies();
-    } else {
-      console.error(`Failed to add movie to favorites.`);
-    }},
-    (error) => {
-      console.error('Error: ', error);
+  addFavMovies(movie: any): void {
+    this.user = this.fetchApiData.getUser();
+    this.userData.Username = this.user.Username;
+    this.fetchApiData.addFavoriteMovies(movie).subscribe(() => {
+      this.getFavMovies(); 
+      this.snackBar.open('Movie has been added to your favorites!', 'OK', {
+        duration: 2000,
+      });
     });
   }
 
   // Function to delete movie from favMovie list
-  deleteFavMovies(MovieID: string): void {
-    this.fetchApiData.deleteFavoriteMovies(MovieID).subscribe((resp: any) => {
-      console.log(resp);
-      this.snackBar.open(
-        'Movie has been deleted from your favorites!',
-        'OK',
-        {
-          duration: 2000,
-        }
-      );
-      this.ngOnInit();
+  deleteFavMovies(movie: any): void {
+    this.user = this.fetchApiData.getUser();
+    this.userData.Username = this.user.Username;
+    this.fetchApiData.deleteFavoriteMovies(movie).subscribe((resp: any) => {
+      this.getFavMovies();
+      this.snackBar.open('Movie has been deleted from your favorites!', 'OK', {
+        duration: 2000,
+      });
     });
-    return this.getFavMovies();
   }
 }

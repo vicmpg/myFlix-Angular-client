@@ -25,8 +25,8 @@
                     Director
                 </button>
                 <button mat-icon-button style="width: auto;" color="primary"  (click)="toggleFav(movie)">
-                    <mat-icon *ngIf="!isFav(movie._id)" style="transform: scale(1.5);" color="primary">favorite_border</mat-icon>
-                    <mat-icon *ngIf="isFav(movie._id)" style="transform: scale(1.5);" color="primary">favorite</mat-icon>
+                    <mat-icon *ngIf="!isFav(movie)" style="transform: scale(1.5);" color="primary">favorite_border</mat-icon>
+                    <mat-icon *ngIf="isFav(movie)" style="transform: scale(1.5);" color="primary">favorite</mat-icon>
                 </button>
             </mat-card-actions>
         </div>
