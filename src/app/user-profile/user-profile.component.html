@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="profile-container">
     <mat-card class="user-card">
-        <img mat-card-image src="http://placekitten.com/300/300">
+        <img mat-card-image src="https://1.bp.blogspot.com/_EAViqbzwc_s/TKGUD30c95I/AAAAAAAABX4/3mESqT-k0uA/s1600/dog+(7).jpg">
         <mat-card-header class="profile-card-header">
             <mat-card-title>{{userData.Username}}</mat-card-title>
         </mat-card-header>
@@ -71,4 +71,48 @@
             </mat-card-actions>
         </mat-card-content>
     </mat-card>
+    <div class="fav-movies-cards">
+        <div class="profile-card-header">
+            <h3>Favorite Movies</h3>
+        </div>
+        <!-- Favorite Movies Cards Start -->
+        <div class="movie-card-container">
+            <mat-card *ngFor="let movie of FavoriteMovies;" class="movie-card">
+                <div class="img-container">
+                    <img mat-card-image src={{movie.ImagePath}} alt={{movie.Title}} />
+                    <mat-card-actions class="actions-fav">
+                        <button
+                    mat-button
+                    color="primary"
+                    (click)="openSynopsisDialog(movie.Description)"
+                >
+                    Synopsis
+                </button>
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="openGenreDialog(movie.Genre.Name, movie.Genre.Description)"
+                >
+                    Genre
+                </button>
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="openDirectorDialog(movie.Director.Name, movie.Director.Bio,movie.Director.Birth,movie.Director.Death)"
+                >
+                    Director
+                </button>
+                        <button mat-icon-button style="width: auto;" color="primary"  (click)="deleteFavMovies(movie)">
+                            <mat-icon style="transform: scale(1.5);" color="primary">favorite</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </div>
+                <mat-card-header class="card-header-fav">
+                    <mat-card-title class="card-title-fav">{{movie.Title}} ({{movie.Year}})</mat-card-title>
+                    <mat-card-subtitle>Directed by: </mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+             <!-- Favorite Movies Cards End -->
+        </div>
+    </div>
 </div>
